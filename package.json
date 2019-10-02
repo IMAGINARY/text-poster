@@ -1,0 +1,43 @@
+{
+  "name": "@imaginary-maths/text-poster",
+  "version": "1.0.0",
+  "description": "Web library for typesetting poster-style text.",
+  "main": "dist/text-poster.js",
+  "repository": "https://github.com/IMAGINARY/text-poster.git",
+  "author": "Eric Londaits <eric.londaits@imaginary.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IMAGINARY/text-poster/issues"
+  },
+  "private": false,
+  "engines": {
+    "node": "^10.14.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "babelify": "^10.0.0",
+    "browserify": "^16.2.3",
+    "chai": "^4.2.0",
+    "date-chinese": "^1.0.6",
+    "date-easter": "^0.2.4",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
+    "hebcal": "^2.3.1",
+    "mocha": "^6.2.0",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "scripts": {
+    "build": "gulp"
+  },
+  "files": [
+    "dist/text-poster.js",
+    "dist/text-poster.min.js",
+    "dist/text-poster.min.js.map"
+  ]
+}

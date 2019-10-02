@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Poster Test</title>
+  <style>
+    body {
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 16px;
+    }
+    #poster {
+      width: 216px;
+      height: 384px;
+      border: 1px solid black;
+      margin: 20px auto;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      line-height: 1;
+      text-transform: uppercase;
+      position: relative;
+    }
+
+    #poster .line-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    #poster .line {
+      display: inline-block;
+      white-space: nowrap;
+      position: absolute;
+      left: 0;
+      transform-origin: top left;
+    }
+  </style>
+</head>
+<body>
+  <div id="poster"></div>
+  Type something:<br>
+  <textarea id="inputField" rows="5" cols="50"></textarea>
+  <script src="dist/text-poster.js"></script>
+  <script>
+    const poster = document.getElementById('poster');
+    const inputField = document.getElementById('inputField');
+    inputField.addEventListener('input', () => {
+      TextPoster.render(poster, inputField.value, { lineSpacing: 0});
+    });
+  </script>
+</body>
+</html>
