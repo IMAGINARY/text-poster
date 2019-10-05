@@ -23,7 +23,12 @@ See `index.html` for a better example.
 
 Check `src/main.js` for available options.
 
-The font used is whatever was assigned to the container through the magic of CSS.  
+The font used is whatever was assigned to the container through the magic of CSS.
+
+### Escape codes
+
+If a line starts with `@@` it's height will be made the minimum (according to parameters) 
+and the text will be centered.  
 
 ## Credits
 

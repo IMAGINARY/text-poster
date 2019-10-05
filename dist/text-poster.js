@@ -42,38 +42,58 @@ function render(container, text) {
     return each.length > 0;
   });
   lines.forEach(function (line) {
-    var words = line.split(' ');
-    var fromWord = 0;
-    var toWord = 0;
+    var lineText = line;
+    var smallText = false; // Check for escape characters
 
-    while (fromWord < words.length) {
-      var lineElement = document.createElement('div');
-      lineElement.classList.add('line');
-      lineContainer.append(lineElement);
-      var sizeFactor = 1;
+    if (line.trim().substr(0, 2) === '@@') {
+      lineText = line.trim().substr(2).trim();
+      smallText = true;
+    }
 
-      do {
-        toWord += 1;
+    if (lineText.length > 0) {
+      var words = lineText.split(' ');
+      var fromWord = 0;
+      var toWord = 0;
+
+      while (fromWord < words.length) {
+        var lineElement = document.createElement('div');
+        lineElement.classList.add('line');
+        lineContainer.append(lineElement);
+        var sizeFactor = 1; // Add words until the line's height becomes smaller than the minimum
+
+        do {
+          toWord += 1;
+          lineElement.textContent = words.slice(fromWord, toWord).join(' ');
+          sizeFactor = container.clientWidth / lineElement.clientWidth;
+        } while (toWord <= words.length && lineElement.clientHeight * sizeFactor / container.clientHeight >= minLineHeight); // If we exited the loop because the height became less than the minimum
+
+
+        if (toWord <= words.length) {
+          // If possible remove one word to go back above the minimum
+          if (toWord > fromWord + 1) {
+            toWord -= 1;
+          }
+        }
+
         lineElement.textContent = words.slice(fromWord, toWord).join(' ');
-        sizeFactor = container.clientWidth / lineElement.clientWidth;
-      } while (toWord < words.length && lineElement.clientHeight * sizeFactor / container.clientHeight > minLineHeight);
 
-      if (toWord < words.length) {
-        toWord -= 1;
-      }
+        if (smallText) {
+          // Make the line the minimum height unless it doesn't fit and it needs shrinking
+          // (this happens with single words that are very long)
+          sizeFactor = Math.min(container.clientWidth / lineElement.clientWidth, minLineHeight * container.clientHeight / lineElement.clientHeight);
+        } else {
+          // Make the line the full width unless it goes over the max height and it needs
+          // shrinking
+          sizeFactor = Math.min(container.clientWidth / lineElement.clientWidth, maxLineHeight * container.clientHeight / lineElement.clientHeight);
+        } // Center the line
 
-      lineElement.textContent = words.slice(fromWord, toWord).join(' ');
-      sizeFactor = container.clientWidth / lineElement.clientWidth;
 
-      if (lineElement.clientHeight * sizeFactor / container.clientHeight > maxLineHeight) {
-        sizeFactor = maxLineHeight * container.clientHeight / lineElement.clientHeight;
         lineElement.style.left = "".concat((container.clientWidth - lineElement.clientWidth * sizeFactor) / 2, "px");
+        lineElement.style.transform = "scale(".concat(sizeFactor, ")");
+        lineElement.style.top = "".concat(lastHeight, "px");
+        lastHeight += lineElement.clientHeight * sizeFactor + lineSpacing;
+        fromWord = toWord;
       }
-
-      lineElement.style.transform = "scale(".concat(sizeFactor, ")");
-      lineElement.style.top = "".concat(lastHeight, "px");
-      lastHeight += lineElement.clientHeight * sizeFactor + lineSpacing;
-      fromWord = toWord;
     }
   });
   lineContainer.style.top = "".concat((container.clientHeight - lastHeight) / 2, "px");
