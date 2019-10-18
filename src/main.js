@@ -32,13 +32,13 @@ function render(container, text, options = {}) {
   container.append(lineContainer);
 
   let lastHeight = 0;
-  const lines = text.split('\n').filter(each => each.length > 0);
+  const lines = text.split('\n').map(line => line.trim()).filter(each => each.length > 0);
   lines.forEach((line) => {
     let lineText = line;
     let smallText = false;
     // Check for escape characters
-    if (line.trim().substr(0, 2) === '@@') {
-      lineText = line.trim().substr(2).trim();
+    if (line.substr(0, 2) === '@@') {
+      lineText = line.substr(2).trim();
       smallText = true;
     }
     if (lineText.length > 0) {

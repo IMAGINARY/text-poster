@@ -38,15 +38,17 @@ function render(container, text) {
   lineContainer.classList.add('line-container');
   container.append(lineContainer);
   var lastHeight = 0;
-  var lines = text.split('\n').filter(function (each) {
+  var lines = text.split('\n').map(function (line) {
+    return line.trim();
+  }).filter(function (each) {
     return each.length > 0;
   });
   lines.forEach(function (line) {
     var lineText = line;
     var smallText = false; // Check for escape characters
 
-    if (line.trim().substr(0, 2) === '@@') {
-      lineText = line.trim().substr(2).trim();
+    if (line.substr(0, 2) === '@@') {
+      lineText = line.substr(2).trim();
       smallText = true;
     }
 

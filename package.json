@@ -1,6 +1,6 @@
 {
   "name": "@imaginary-maths/text-poster",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Web library for typesetting poster-style text.",
   "main": "dist/text-poster.js",
   "repository": "https://github.com/IMAGINARY/text-poster.git",
