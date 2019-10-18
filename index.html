@@ -8,14 +8,21 @@
       font-family: Helvetica, Arial, sans-serif;
       font-size: 16px;
     }
+
+    #poster-wrapper {
+      transform: scale(0.125);
+      transform-origin: top left;
+      width: 250px;
+      height: 400px;
+    }
+
     #poster {
-      width: 216px;
-      height: 384px;
+      width: 1944px;
+      height: 3072px;
       border: 1px solid black;
       margin: 20px auto;
-      font-family: Helvetica, Arial, sans-serif;
-      font-size: 20px;
-      line-height: 1;
+      font-family: Brown, sans-serif;
+      font-weight: 700;
       text-transform: uppercase;
       position: relative;
     }
@@ -36,7 +43,9 @@
   </style>
 </head>
 <body>
-  <div id="poster"></div>
+  <div id="poster-wrapper">
+    <div id="poster"></div>
+  </div>
   Type something:<br>
   <textarea id="inputField" rows="5" cols="50"></textarea>
   <script src="dist/text-poster.js"></script>
